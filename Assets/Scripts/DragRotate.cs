@@ -28,14 +28,4 @@ public class DragRotate : MonoBehaviour
             transform.rotation = startRotation * Quaternion.Euler(Vector3.down * (distBetween / sceneWidth) * 360);
         }
     }
-
-    /*void OnMouseDrag()
-    {
-        xRotation = Input.GetAxis("Mouse X") * rotationSpeed;
-        yRotation = Input.GetAxis("Mouse Y") * rotationSpeed;
-
-        transform.Rotate(Vector3.down, xRotation);
-        transform.Rotate(Vector3.right, yRotation);
-    }
-    */
 }
