@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class Controller : MonoBehaviour
+public class CharacterController : MonoBehaviour
 {
     MeshRenderer meshRendHead, meshRendTorso, meshRendWingL, meshRendWingR, meshRendTail, meshRendFootL, meshRendFootR, meshRendArmR, meshRendArmL, meshRendBobble;
+    public TextMeshProUGUI cold;
 
     void Start()
     {
-        CharacterData characterData = new CharacterData();
+        //CharacterData characterData = new CharacterData();
         meshRendHead = GameObject.Find("Dummy008").GetComponent<MeshRenderer>();
         meshRendTorso = GameObject.Find("Dummy003").GetComponent<MeshRenderer>();
         meshRendWingL = GameObject.Find("Dummy004").GetComponent<MeshRenderer>();
@@ -24,7 +26,7 @@ public class Controller : MonoBehaviour
 
     void Update()
     {
-        UpdateStats();
+        //UpdateStats();
     }
 
     public void UpdateMaterial(Material newMaterial)
@@ -41,8 +43,11 @@ public class Controller : MonoBehaviour
         meshRendBobble.material = newMaterial;
     }
 
-    void UpdateStats()
+    public void UpdateStats()
     {
-
+        var data = GetComponent<CharacterData>();
+        int coldValue = data.GetStat(StatType.Cold);
+        cold.text = coldValue.ToString();
+        Debug.Log(coldValue.ToString());
     }
 }

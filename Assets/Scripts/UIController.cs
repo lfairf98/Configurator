@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DragRotate : MonoBehaviour
+public class UIController : MonoBehaviour
 {
     public float rotationSpeed = 1f;
 
