@@ -3,71 +3,60 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-[Serializable]
-public enum StatType { Venom, Bliss, Cyber, Cold, Heart }
-
 public class CharacterData : MonoBehaviour
 {
     public GameObject character;
-    [SerializeField] Item[] items;
-    [SerializeField] StatData[] stats;
-    public StatType type;
+    //[SerializeField] Item[] items;
+    //[SerializeField] StatData[] stats;
+    //public StatType type;
+    public enum itemType { head, back, body, shoes, face, background, colour };
+    public Dictionary<itemType, Item> itemsDict = new Dictionary<itemType, Item>();
+    public Dictionary<StatType, int> statsDict = new Dictionary<StatType, int>();
 
     //additem
-    public void AddItem(Item item)
+    public void AddItem(Item item, itemType type)
     {
-        //add the item to the array
-        //update stat
+        itemsDict[type] = item;
+        GetComponent<CharacterController>().UpdateStats();
     }
 
-    //Remove item
-
-    public void RemoveItem()
+    public void RemoveItem(Item item, itemType type)
     {
         //Removes item from array
-        //Update stats
+        if(item == itemsDict[type])
+        {
+            itemsDict.Remove(type);
+        }
+        GetComponent<CharacterController>().UpdateStats();
     }
 
     private void UpdateStats()
     {
-        //iterate over stats array and set to 0
-        for (var i = 0; i<stats.Length; i++) 
+        //iterate over stats and set to 0
+        foreach (KeyValuePair<StatType, int> entry in statsDict)
         {
-            stats[i].value = 0;
+            statsDict[entry.Key] = 0;
         }
 
-        //Iterate over stats array
-        //For each character stat update with corresponding item stat
-        for (var i = 0; i < stats.Length; i++)
+        foreach (KeyValuePair<StatType, int> stat in statsDict)
         {
-            for (var j = 0; j < items.Length; j++)
+            foreach (KeyValuePair<itemType, Item> item in itemsDict)
             {
-                stats[i].value += items[j].GetValue(stats[i].type);
+                statsDict[stat.Key] += itemsDict[item.Key].GetStat(stat.Key);
             }
         }
     }
+
     public void SetStat(StatType type, int value)
     {
-        for (var i = 0; i < stats.Length; i++)
-        {
-            if (stats[i].type == type)
-            {
-                stats[i].value = value;
-                return;
-            }
-        }
+        statsDict[type] = value;
         GetComponent<CharacterController>().UpdateStats();
     }
 
     internal int GetStat(StatType type)
     {
-        for (var i = 0; i < stats.Length; i++)
-        {
-            if (stats[i].type == type)
-            {
-                return stats[i].value;
-            }
-        }
-        return -1;
+        int value = 0;
+        statsDict.TryGetValue(type, out value);
+        return value;
     }
 }

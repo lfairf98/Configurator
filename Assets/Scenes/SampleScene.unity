@@ -633,6 +633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
+  items: []
   stats: []
   type: 0
 --- !u!1 &231084374
@@ -1504,7 +1505,6 @@ GameObject:
   - component: {fileID: 504719452}
   - component: {fileID: 504719451}
   - component: {fileID: 504719450}
-  - component: {fileID: 504719453}
   m_Layer: 5
   m_Name: Red
   m_TagString: Untagged
@@ -1622,22 +1622,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 504719448}
   m_CullTransparentMesh: 0
---- !u!114 &504719453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 504719448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 299f999f3823204438f4dba3bc3a9be6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats:
-  - value: 0
-    type: 3
-  character: {fileID: 1961636535}
 --- !u!1 &520060067
 GameObject:
   m_ObjectHideFlags: 0
@@ -3559,6 +3543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
+  items: []
   stats:
   - value: 0
     type: 3

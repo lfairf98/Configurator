@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    [SerializeField] StatData[] stats;
-    public StatType type;
-
-    enum itemType { head, back, body, shoes, face, background, colour };
+    [SerializeField]
+    private Dictionary<StatType, int> stats = new Dictionary<StatType, int>();
 
     /// <summary>
     /// Takes a stat type and value then iterates through the item's stats array until a stat of the given type is found
@@ -16,15 +14,12 @@ public class Item : MonoBehaviour
     /// <param name="value">the value we want to set it to</param>
     public void SetStat(StatType type, int value)
     {
-        for (var i = 0; i < stats.Length; i++)
+        if (stats.ContainsKey(type))
         {
-            if(stats[i].type == type)
-            {
-                stats[i].value = value;
-                return;
-            }
+            stats[type] = value;
+            GetComponent<CharacterController>().UpdateStats();
+            return;
         }
-        GetComponent<CharacterController>().UpdateStats();
     }
 
     /// <summary>
@@ -32,15 +27,12 @@ public class Item : MonoBehaviour
     /// </summary>
     /// <param name="type">Stat type we are looking for</param>
     /// <returns>Value of the stat or -1 if not found</returns>
-    internal int GetValue(StatType type)
+    internal int GetStat(StatType type)
     {
-        for (var i = 0; i < stats.Length; i++)
+        if (stats.ContainsKey(type))
         {
-            if (stats[i].type == type)
-            {
-                return stats[i].value;
-            }
+            return stats[type];
         }
-        return -1;
+        return 0;
     }
 }
